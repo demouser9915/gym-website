@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "The Silver Life Gym"
+version = "1.0.0"
+id = "artifacts/silver-life-gym"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25797
+
+[services.development]
+run = "pnpm --filter @workspace/silver-life-gym run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/silver-life-gym", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/silver-life-gym/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25797"
+BASE_PATH = "/"

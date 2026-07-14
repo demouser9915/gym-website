@@ -1,0 +1,119 @@
+ROLE & OBJECTIVE
+You are a senior award-winning web designer/developer who builds $10,000+ premium brand websites (think Awwwards / FWA-level agency work — the caliber of sites for luxury fitness brands, high-end hotels, and boutique studios). Build a complete, production-ready, fully responsive website for a premium gym called "The Silver Life Gym".
+The client's single biggest complaint: "Every gym website looks the same — bold red/black, stock gym-bro imagery, generic countdown timers." Your mission is to break that mold completely. This must look like a boutique fitness/wellness brand, not a generic gym template. Think Equinox, Barry's, Tracy Anderson, Rumble, Peloton Studios — elevated, editorial, cinematic — NOT a bargain CrossFit box template.
+Do not ask clarifying questions. Make confident creative decisions and build the entire site now, end to end.
+
+HARD CONSTRAINTS (non-negotiable)
+
+NO RED ANYWHERE. Not in buttons, hovers, icons, gradients, error states, badges — nowhere. This is a strict owner requirement. Choose an alternative accent color per the palette below.
+
+Fully responsive — flawless, smooth, touch-optimized experience on mobile and tablet, not just a squeezed desktop layout. Design mobile interactions intentionally (thumb-friendly nav, swipeable carousels, tap targets ≥44px).
+
+No backend / no real database required. This is a design-and-frontend-only build. The contact form UI should be fully built and styled but does not need to actually send data anywhere yet.
+
+Build in plain HTML/CSS/JS (semantic HTML5, organized CSS with custom properties, vanilla JS or a lightweight animation library like GSAP/ScrollTrigger or AOS for scroll animations). Only use React if a component genuinely requires it — plain HTML/CSS/JS is the preferred, default approach for this project.
+
+Site structure (Multi-Page Architecture): Build this as a multi-page website with separate pages (Home, About Us, Services, Coaches, Gallery, Membership, Classes, Contact Us). The top navigation bar must link to all of these individual pages using clean, descriptive hrefs. Ensure a consistent global header and footer across all pages.
+
+Judge every decision by: does this feel like a $10,000 boutique brand site, or a $200 template? If a component feels generic, redesign it.
+
+ASSETS PROVIDED — USE THESE EXACT VALUES
+
+Logo: A real logo file will be supplied as a JPG. Build the nav and footer logo slot assuming a JPG (i.e. a flat rectangular image with its own background, not a transparent PNG/SVG) — design the logo container/background behind it so a JPG logo sits cleanly regardless of whether its background matches the site's dark or light sections. Use LOGO_PLACEHOLDER.jpg as the filename reference in code.
+
+Google Map location: Embed a Google Map pinned to these exact coordinates: Latitude 23.059123877401614, Longitude 72.55583206439027. Use this in the Google Maps iframe embed src / marker coordinates directly.
+
+WhatsApp number: Use 9825414284 for every WhatsApp CTA. Assume the standard +91 country code, so links should use [https://wa.me/919825414284](https://wa.me/919825414284) with a short prefilled message like "Hi! I'd like to know more about The Silver Life Gym."
+
+PLACEHOLDER / ASSUMPTION POLICY
+For any detail not explicitly provided, assume something standard and realistic for a premium gym and proceed using dummy data. Write polished, on-brand placeholder copy and source premium-feeling placeholder imagery. Everything should be easy to identify and swap later.
+
+DESIGN DIRECTION
+
+Overall aesthetic: "Quiet luxury meets athletic intensity." Editorial magazine layout sensibility (generous whitespace, asymmetry, large confident typography) fused with kinetic, athletic energy.
+
+Color palette (NO RED): Build the palette around one of these two directions:
+
+Direction A — "Onyx & Gold": Deep charcoal/near-black (#0B0B0C – #16171A) base, warm brushed-gold / champagne accent (#C9A24B–#D8B978), soft off-white (#F5F3EE), muted graphite grays.
+
+Direction B — "Midnight & Emerald": Deep ink navy-black base (#0A0E12), a rich emerald/forest accent (#2E6F5E–#3F8F72), warm bone/cream (#F4F1EA), brushed steel gray accents.
+
+Typography: Pair a high-contrast modern serif or condensed display sans for headlines (e.g., "Fraunces" or "Anton") with a clean geometric/grotesk sans for body copy (e.g., "Inter").
+
+Signature "extraordinary" elements: Custom animated cursors, scroll-triggered reveal animations, marquee/ticker strips, split-screen layouts, subtle grain/noise textures, and magnetic buttons.
+
+Motion & interaction rules: Transitions should feel slow, confident, and cinematic (400–800ms easing). Respect prefers-reduced-motion. Provide elegant hover and tap states.
+
+TECHNICAL & SEO SPECIFICATIONS
+
+Semantic HTML structure (h1, h2, nav, main, section, footer).
+
+Unique, keyword-relevant <title> and <meta name="description"> for every separate page.
+
+Schema.org structured data (JSON-LD) for a LocalBusiness / HealthClub entity.
+
+Accessible: ARIA labels, focus states, alt text on all images.
+
+Floating WhatsApp chat button (bottom corner, persistent), linking to [https://wa.me/919825414284](https://wa.me/919825414284).
+
+SITE CONTENT & PAGE STRUCTURE — BUILD EXACTLY THESE PAGES
+
+1. Global Elements (Header & Footer)
+
+Header: Sticky/transparent nav that turns solid on scroll. Logo slot (sized for JPG), links to all separate pages, prominent "Join Now" button. Full-screen elegant overlay hamburger menu on mobile.
+
+Footer: Logo slot, tagline, nav links, social icons, contact snippet, copyright, credit slot.
+
+2. Page: Home
+
+Hero Slider: A full-bleed image slider featuring 2-3 high-quality images with cinematic fade transitions. Gym name lockup + bold tagline. Dark gradient overlay for text legibility. Three primary CTAs (Join Now, Book a Free Trial, Chat with Us via WhatsApp).
+
+Trust Marquee: A looping, elegant trust-strip directly below the hero.
+
+Featured Coaches: Showcase 3 main coaches. Clean grid using dummy data. Each card shows: Image, Name, Experience, and Position. Below the cards, include a "View More" CTA that links to the dedicated Coaches page.
+
+Social Media Reels (Above Footer): A dedicated section displaying 4 fixed, auto-playing reels/videos. Provide placeholders where video URLs/files can be easily swapped. Include a "View More" button that redirects to Instagram.
+
+3. Page: About Us
+
+Founders Section: Highlight two founders. Include their names, high-quality placeholder images, and a short, impactful introductory bio for each (use dummy data).
+
+Brand Story: Split-screen editorial layout detailing the gym's heritage (founded in 2006 in Naranpura, Ahmedabad).
+
+Mission & Values: Short, powerful statement.
+
+4. Page: Coaches
+
+Full Team Grid: A rich, dedicated page displaying the entire coaching staff. Since there are more than 3-4 coaches, create a comprehensive grid of cards. Every card must contain: Image, Name, Experience, and Position (use dummy data).
+
+5. Page: Services
+
+Design this as a visually rich, interactive layout (horizontal-scroll or expandable cards) grouping top-level services:
+
+Strength Conditioning, Functional Movement, Metabolic Sculpt.
+
+Specialized Programs (Women's Fitness, Vitality 40+).
+
+Nutrition & Supplementation Advisory.
+
+Lifestyle & Wellness (Posture Reprogramming).
+
+6. Page: Gallery
+
+Mixed Media Gallery: A premium masonry, lightbox, or horizontal-scroll gallery showcasing the facility. Crucially, this gallery must support and display both images and videos. Use high-quality placeholder media for strength zones, cardio zones, and locker rooms.
+
+7. Page: Membership & Classes
+
+Pricing: Elegant pricing table — 3 tiers (e.g., Essential / Signature / Elite).
+
+Class Schedule: Weekly timetable (Mon–Sun) styled as a clean, premium grid. Filterable by day on mobile. Categories include Yoga Flow, Zumba, CoreBlast, MetCon.
+
+8. Page: Contact Us
+
+Split layout: Left = details, Right = embedded Google Map centered on 23.059123877401614, 72.55583206439027.
+
+Details: Address (Naranpura, Ahmedabad), Phone, Email, Operating Hours (use dummy data).
+
+Form: Name, Email, Phone, Message, Submit button (front-end only UI).
+
+Reviews: Include an elegant Google Reviews button linking to: [https://www.google.com/search?sca_esv=2dfa73c1edabb0ca&rlz=1C1ONGR_enIN1187IN1187&sxsrf=APpeQns2xcJ-r_jDPY-lbx4Ek41OYHCjRg:1783843699949&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_02K06Cr9kn0ZCYqOIQq99xuyl63LO3E1-LmgHcTTOyaA3WtEM1K-ZtLjIyexO_B-dGkSDgt3L9hj3R9JLtqX66_HluxJ8tjyh93f4N1m2Uo0Etdzg%3D%3D&q=The+Silver+Life+Gym+Reviews&sa=X&ved=2ahUKEwjW2MfQ18yVAxV2SmwGHev-EyMQ0bkNegQINRAH&biw=1536&bih=730&dpr=1.25](https://www.google.com/search?sca_esv=2dfa73c1edabb0ca&rlz=1C1ONGR_enIN1187IN1187&sxsrf=APpeQns2xcJ-r_jDPY-lbx4Ek41OYHCjRg:1783843699949&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_02K06Cr9kn0ZCYqOIQq99xuyl63LO3E1-LmgHcTTOyaA3WtEM1K-ZtLjIyexO_B-dGkSDgt3L9hj3R9JLtqX66_HluxJ8tjyh93f4N1m2Uo0Etdzg%3D%3D&q=The+Silver+Life+Gym+Reviews&sa=X&ved=2ahUKEwjW2MfQ18yVAxV2SmwGHev-EyMQ0bkNegQINRAH&biw=1536&bih=730&dpr=1.25)
