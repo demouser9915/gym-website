@@ -3,3 +3,4 @@
   "outputDirectory": "artifacts/silver-life-gym/dist/public",
   "installCommand": "pnpm install"
 }
+ 
