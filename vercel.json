@@ -1,6 +1,5 @@
 {
-  "buildCommand": "pnpm run build",
+  "buildCommand": "pnpm --filter @workspace/silver-life-gym... run build",
   "outputDirectory": "artifacts/silver-life-gym/dist/public",
   "installCommand": "pnpm install"
 }
- 
