@@ -2,12 +2,16 @@ import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
-interface MagneticButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface MagneticButtonProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
   variant?: 'primary' | 'outline' | 'ghost';
   className?: string;
   as?: any;
   href?: string;
+  target?: string;
+  rel?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export const MagneticButton: React.FC<MagneticButtonProps> = ({

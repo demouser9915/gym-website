@@ -66,7 +66,7 @@ const Home: React.FC = () => {
       "slogan": "Where Strength Meets Serenity"
     };
 
-    let script = document.getElementById('json-ld');
+    let script = document.getElementById('json-ld') as HTMLScriptElement | null;
     if (!script) {
       script = document.createElement('script');
       script.id = 'json-ld';
