@@ -3,14 +3,11 @@ import { motion } from 'framer-motion';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/ScrollReveal';
 
 const team = [
-  { name: "Rajesh Mehta", role: "Head Strength Coach", exp: "14 Years", img: "https://images.unsplash.com/photo-1567598508481-65985588e295?w=600&q=80" },
-  { name: "Priya Sharma", role: "Functional Movement Specialist", exp: "9 Years", img: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=600&q=80" },
-  { name: "Arjun Patel", role: "Metabolic Conditioning Expert", exp: "11 Years", img: "https://images.unsplash.com/photo-1534438097544-e50b7348981e?w=600&q=80" },
-  { name: "Sunita Desai", role: "Women's Fitness Coach", exp: "7 Years", img: "https://images.unsplash.com/photo-1609899517236-77a34cd5f857?w=600&q=80" },
-  { name: "Rohan Joshi", role: "Vitality 40+ Specialist", exp: "12 Years", img: "https://images.unsplash.com/photo-1590439471364-192aa70c0b53?w=600&q=80" },
-  { name: "Kavita Rao", role: "Nutrition & Wellness Coach", exp: "8 Years", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80" },
-  { name: "Manish Thakkar", role: "Cardio & Endurance Coach", exp: "6 Years", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=80" },
-  { name: "Deepa Nair", role: "Yoga & Mobility Coach", exp: "10 Years", img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&q=80" },
+  { name: "Rajesh Mehta", role: "Head Strength Coach", exp: "14 Years", img: "/Images/trainers/T1.JPG" },
+  { name: "Rahul Sharma", role: "Functional Movement Specialist", exp: "9 Years", img: "/Images/trainers/T2.JPG" },
+  { name: "Arjun Patel", role: "Metabolic Conditioning Expert", exp: "11 Years", img: "/Images/trainers/T3.JPG" },
+  { name: "Sunita Desai", role: "Women's Fitness Coach", exp: "7 Years", img: "/Images/trainers/T4.JPG" },
+  { name: "Rohan Joshi", role: "Vitality 40+ Specialist", exp: "12 Years", img: "/Images/trainers/T5.JPG" },
 ];
 
 const Coaches: React.FC = () => {

@@ -10,13 +10,8 @@ export const Footer: React.FC = () => {
           
           {/* Brand */}
           <div className="col-span-1 md:col-span-2 lg:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-3 group mb-6">
-              <div className="w-10 h-10 bg-sidebar border border-border rounded-lg flex items-center justify-center overflow-hidden">
-                <img src="/LOGO_PLACEHOLDER.jpg" alt="The Silver Life Gym Logo" className="w-8 h-8 object-contain mix-blend-screen" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-serif font-bold tracking-wide uppercase text-foreground">Silver Life</span>
-              </div>
+            <Link href="/" className="inline-flex items-center group mb-6 transition-transform hover:scale-105">
+              <img src="/Images/logo.jpeg" alt="The Silver Life Gym Logo" className="h-20 w-auto object-contain mix-blend-screen" />
             </Link>
             <p className="font-serif italic text-primary mb-6 pr-4">
               Where Strength Meets Serenity. Since 2006.

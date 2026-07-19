@@ -3,26 +3,73 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/ScrollReveal';
 import { Play, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const galleryItems = [
-  { id: 1, type: 'image', src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&q=80", alt: "Strength Zone" },
-  { id: 2, type: 'image', src: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=1200&q=80", alt: "Dumbbell Rack" },
-  { id: 3, type: 'video', src: "placeholder_1", alt: "Gym Tour Video" },
-  { id: 4, type: 'image', src: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=1200&q=80", alt: "Plates" },
-  { id: 5, type: 'image', src: "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=1200&q=80", alt: "Rowing Machines" },
-  { id: 6, type: 'image', src: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80", alt: "Cardio Zone" },
-  { id: 7, type: 'video', src: "placeholder_2", alt: "Member Highlight Video" },
-  { id: 8, type: 'image', src: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1200&q=80", alt: "Locker Room" },
-  { id: 9, type: 'image', src: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=1200&q=80", alt: "Group Training Space" },
-  { id: 10, type: 'image', src: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80", alt: "Yoga Studio" },
-  { id: 11, type: 'image', src: "https://images.unsplash.com/photo-1522898467493-49726bf28798?w=1200&q=80", alt: "Treadmills" },
-  { id: 12, type: 'image', src: "https://images.unsplash.com/photo-1554284126-aa88f22d8b74?w=1200&q=80", alt: "Kettlebells" }
-];
+interface GalleryItem {
+  id: number;
+  type: 'image' | 'video';
+  src: string;
+  alt: string;
+}
 
 const Gallery: React.FC = () => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     document.title = "Gallery | The Silver Life Gym | Ahmedabad";
+    
+    // Dynamically probe for files so you don't need to restart the server
+    const fetchGalleryItems = async () => {
+      const exts = ['.jpg', '.jpeg', '.png', '.mp4', '.webm'];
+      let items: GalleryItem[] = [];
+      let i = 1;
+      let misses = 0;
+      
+      while (misses < 3 && i <= 100) { // Tolerate up to 3 gaps, max 100 items
+        let found = false;
+        
+        for (const folderCase of ['gallery', 'Gallery']) {
+          for (const ext of exts) {
+            // Check lowercase then uppercase
+            for (const actualExt of [ext, ext.toUpperCase()]) {
+              const path = `/Images/${folderCase}/i${i}${actualExt}`;
+              try {
+                // Append a cache-buster so the browser doesn't return a cached 404
+                const res = await fetch(path + '?t=' + Date.now(), { method: 'HEAD', cache: 'no-store' });
+                const contentType = res.headers.get('content-type') || '';
+                
+                if (res.ok && !contentType.includes('text/html')) {
+                  const isVideo = /\.(mp4|webm|ogg)$/i.test(actualExt);
+                  items.push({
+                    id: i,
+                    type: isVideo ? 'video' : 'image',
+                    src: path,
+                    alt: `Gallery Item ${i}`
+                  });
+                  found = true;
+                  misses = 0;
+                  break; // Break inner loop
+                }
+              } catch(e) {
+                // ignore fetch errors
+              }
+            }
+            if (found) break; // Break ext loop
+          }
+          if (found) break; // Break folderCase loop
+        }
+        
+        if (!found) {
+          misses++;
+        }
+        i++;
+      }
+      
+      setGalleryItems(items);
+      setIsLoading(false);
+    };
+
+    fetchGalleryItems();
   }, []);
 
   const openLightbox = (index: number) => {
@@ -39,13 +86,13 @@ const Gallery: React.FC = () => {
     if (lightboxIndex !== null) {
       setLightboxIndex((prev) => (prev! + 1) % galleryItems.length);
     }
-  }, [lightboxIndex]);
+  }, [lightboxIndex, galleryItems.length]);
 
   const prevImage = useCallback(() => {
     if (lightboxIndex !== null) {
       setLightboxIndex((prev) => (prev! === 0 ? galleryItems.length - 1 : prev! - 1));
     }
-  }, [lightboxIndex]);
+  }, [lightboxIndex, galleryItems.length]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -75,33 +122,51 @@ const Gallery: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-16 px-6 max-w-[1400px] mx-auto">
-        <StaggerContainer className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-          {galleryItems.map((item, index) => (
-            <StaggerItem key={item.id} className="break-inside-avoid">
-              <div 
-                className="relative rounded-lg overflow-hidden group cursor-pointer border border-border/50 bg-sidebar"
-                onClick={() => openLightbox(index)}
-              >
-                {item.type === 'image' ? (
-                  <img 
-                    src={item.src} 
-                    alt={item.alt} 
-                    className="w-full h-auto object-cover grayscale opacity-80 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="aspect-[4/3] w-full flex flex-col items-center justify-center bg-sidebar">
-                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center text-primary transition-transform duration-300 group-hover:scale-110">
-                      <Play className="ml-1 w-6 h-6 fill-current" />
+      <section className="py-16 px-6 max-w-[1400px] mx-auto min-h-[40vh]">
+        {isLoading ? (
+          <div className="flex items-center justify-center h-full w-full py-20">
+            <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin opacity-50" />
+          </div>
+        ) : galleryItems.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-muted-foreground font-sans">No gallery items found.</p>
+          </div>
+        ) : (
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {galleryItems.map((item, index) => (
+              <StaggerItem key={item.id}>
+                <div 
+                  className="relative rounded-lg overflow-hidden group cursor-pointer border border-border/50 bg-sidebar aspect-[4/3]"
+                  onClick={() => openLightbox(index)}
+                >
+                  {item.type === 'image' ? (
+                    <img 
+                      src={item.src} 
+                      alt={item.alt} 
+                      className="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="relative w-full h-full bg-sidebar overflow-hidden">
+                      <video 
+                        src={item.src} 
+                        className="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105"
+                        preload="metadata"
+                        muted
+                        playsInline
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="w-12 h-12 rounded-full bg-black/40 backdrop-blur flex items-center justify-center text-primary transition-transform duration-300 group-hover:scale-110">
+                          <Play className="ml-1 w-5 h-5 fill-current text-white" />
+                        </div>
+                      </div>
                     </div>
-                    <span className="mt-4 text-xs font-sans tracking-widest text-muted-foreground uppercase">Video Placeholder</span>
-                  </div>
-                )}
-                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-lg pointer-events-none" />
-              </div>
-            </StaggerItem>
-          ))}
-        </StaggerContainer>
+                  )}
+                  <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-lg pointer-events-none" />
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        )}
       </section>
 
       <AnimatePresence>
@@ -153,9 +218,12 @@ const Gallery: React.FC = () => {
                       className="max-w-full max-h-[80vh] object-contain rounded shadow-2xl border border-border"
                     />
                   ) : (
-                    <div className="w-full aspect-video bg-sidebar border border-border flex items-center justify-center rounded shadow-2xl">
-                       <span className="text-muted-foreground font-sans uppercase tracking-widest text-sm">Video Player Placeholder</span>
-                    </div>
+                    <video 
+                      src={galleryItems[lightboxIndex].src} 
+                      className="max-w-full max-h-[80vh] object-contain rounded shadow-2xl border border-border bg-black"
+                      controls
+                      autoPlay
+                    />
                   )}
                 </motion.div>
               </AnimatePresence>

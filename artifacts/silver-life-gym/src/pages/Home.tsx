@@ -7,9 +7,45 @@ import { Link } from 'wouter';
 import { Play } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+const InstagramReel = ({ url }: { url: string }) => {
+  // Extract the ID from the Instagram URL (works for /reel/ID or /p/ID)
+  const match = url.match(/(?:reel|p)\/([A-Za-z0-9_-]+)/i);
+  const id = match ? match[1] : '';
+
+  if (!id) {
+    return (
+      <div className="w-full h-full bg-sidebar flex items-center justify-center p-4 text-center border border-border">
+        <span className="text-muted-foreground text-xs">Invalid Instagram URL</span>
+      </div>
+    );
+  }
+
+  return (
+    <iframe
+      src={`https://www.instagram.com/p/${id}/embed/captioned`}
+      className="w-full h-full border-none bg-background"
+      scrolling="no"
+      allowTransparency={true}
+      allow="encrypted-media"
+    />
+  );
+};
+
 const Home: React.FC = () => {
+  const [reels, setReels] = React.useState<string[]>([]);
+
   useEffect(() => {
     document.title = "The Silver Life Gym | Premium Fitness & Wellness | Ahmedabad";
+    
+    // Fetch reels dynamically from reels.txt (cache-busted to instantly reflect changes)
+    fetch('/reels.txt?t=' + Date.now())
+      .then(res => res.text())
+      .then(text => {
+        const urls = text.split('\n').map(l => l.trim()).filter(l => l);
+        setReels(urls.slice(0, 4));
+      })
+      .catch(() => {});
+
     // Setup JSON-LD
     const jsonLd = {
       "@context": "https://schema.org",
@@ -41,9 +77,9 @@ const Home: React.FC = () => {
   }, []);
 
   const coaches = [
-    { name: "Rajesh Mehta", role: "Head Strength Coach", exp: "14 Years", img: "https://images.unsplash.com/photo-1567598508481-65985588e295?w=800&q=80" },
-    { name: "Priya Sharma", role: "Functional Movement Specialist", exp: "9 Years", img: "https://images.unsplash.com/photo-1594381898411-846e7d193883?w=800&q=80" },
-    { name: "Arjun Patel", role: "Metabolic Conditioning Expert", exp: "11 Years", img: "https://images.unsplash.com/photo-1534438097544-e50b7348981e?w=800&q=80" }
+    { name: "Rajesh Mehta", role: "Head Strength Coach", exp: "14 Years", img: "/Images/trainers/T1.JPG" },
+    { name: "Rahul Sharma", role: "Functional Movement Specialist", exp: "9 Years", img: "/Images/trainers/T2.JPG" },
+    { name: "Arjun Patel", role: "Metabolic Conditioning Expert", exp: "11 Years", img: "/Images/trainers/T3.JPG" }
   ];
 
   return (
@@ -139,7 +175,13 @@ const Home: React.FC = () => {
         </ScrollReveal>
 
         <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {[1, 2, 3, 4].map((i) => (
+          {reels.length > 0 ? reels.map((url, i) => (
+            <StaggerItem key={i}>
+              <div className="relative aspect-[9/16] w-full bg-sidebar border border-border rounded-lg overflow-hidden group">
+                <InstagramReel url={url} />
+              </div>
+            </StaggerItem>
+          )) : [1, 2, 3, 4].map((i) => (
             <StaggerItem key={i}>
               <div className="relative aspect-[9/16] w-full bg-sidebar border border-border rounded-lg overflow-hidden group cursor-pointer">
                 <img src={`https://images.unsplash.com/photo-${1500000000000 + i * 1000}?w=400&q=80`} alt="Gym Reel Placeholder" className="w-full h-full object-cover opacity-50 transition-opacity duration-500 group-hover:opacity-30" />

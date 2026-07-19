@@ -42,21 +42,15 @@ export const Header: React.FC = () => {
         )}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          <Link href="/" className="relative z-50 flex items-center gap-3 group">
-            <div className="w-12 h-12 bg-sidebar border border-border rounded-lg flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105">
-              <img src="/LOGO_PLACEHOLDER.jpg" alt="The Silver Life Gym Logo" className="w-10 h-10 object-contain mix-blend-screen" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif font-bold text-lg leading-tight tracking-wide uppercase">Silver Life</span>
-              <span className="font-sans text-[10px] tracking-widest text-primary uppercase">Est. 2006</span>
-            </div>
+          <Link href="/" className="relative z-50 flex items-center group transition-transform hover:scale-105">
+            <img src="/Images/logo.png" alt="The Silver Life Gym Logo" className="h-24 w-auto object-contain mix-blend-screen" />
           </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {links.map((link) => (
-              <Link 
-                key={link.path} 
+              <Link
+                key={link.path}
                 href={link.path}
                 className={cn(
                   "font-sans text-sm font-medium transition-colors hover:text-primary tracking-wide",
@@ -102,7 +96,7 @@ export const Header: React.FC = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.05, duration: 0.5 }}
                 >
-                  <Link 
+                  <Link
                     href={link.path}
                     className="text-4xl md:text-5xl font-serif font-medium tracking-tight text-foreground hover:text-primary block transition-colors"
                   >
@@ -110,7 +104,7 @@ export const Header: React.FC = () => {
                   </Link>
                 </motion.div>
               ))}
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
