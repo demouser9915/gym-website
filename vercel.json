@@ -1,7 +1,7 @@
 {
-  "buildCommand": "pnpm --filter @workspace/silver-life-gym... run build",
+  "buildCommand": "cd artifacts/silver-life-gym && pnpm run build",
   "outputDirectory": "artifacts/silver-life-gym/dist/public",
-  "installCommand": "pnpm install",
+  "installCommand": "pnpm install --no-frozen-lockfile",
   "rewrites": [
     {
       "source": "/(.*)",
