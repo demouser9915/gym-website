@@ -27,6 +27,10 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, 'dist/public'),
     emptyOutDir: true,
+    // esbuild here resolves to esbuild-wasm (see pnpm-workspace.yaml overrides)
+    // which uses WebAssembly — no native binary required on Hostinger's noexec env
+    minify: 'esbuild',
+    target: 'es2020',
   },
   server: {
     port: Number(process.env.PORT || '5173'),

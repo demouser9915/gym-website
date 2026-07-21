@@ -33,6 +33,9 @@ minimumReleaseAgeExclude:
   # this setting guards against does not apply to our own packages.
   - '@replit/*'
   - stripe-replit-sync
+  # esbuild-wasm is the WebAssembly build of esbuild (same publisher, same version tag)
+  # used to bypass Hostinger's noexec build environment.
+  - esbuild-wasm
 
 packages:
   - artifacts/silver-life-gym
@@ -59,10 +62,18 @@ catalog:
 
 autoInstallPeers: false
 
-dangerouslyAllowAllBuilds: true
+# ============================================================================
+# esbuild-wasm override: Hostinger's build environment uses a noexec mount
+# that blocks execution of native binaries (EACCES on esbuild/bin/esbuild).
+# esbuild-wasm is the WebAssembly variant of esbuild — identical API, no
+# native binary, no postinstall execution required. Vite uses it transparently.
+# ============================================================================
+overrides:
+  esbuild: "npm:esbuild-wasm@0.28.1"
 
+# No onlyBuiltDependencies for esbuild since esbuild-wasm has no build scripts.
+# dangerouslyAllowAllBuilds is no longer needed.
 onlyBuiltDependencies:
   - '@swc/core'
-  - esbuild
   - msw
   - unrs-resolver
