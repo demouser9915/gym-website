@@ -1,0 +1,53 @@
+name: Build & Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main  # change to your branch name if different (e.g. master)
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # 3. Set up pnpm
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '11.15.1'
+
+      # 4. Install dependencies
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      # 5. Build the frontend
+      - name: Build
+        run: cd artifacts/silver-life-gym && pnpm run build
+        env:
+          NODE_ENV: production
+          BASE_PATH: /
+
+      # 6. Deploy built files to Hostinger via FTP
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./artifacts/silver-life-gym/dist/public/
+          server-dir: /public_html/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
