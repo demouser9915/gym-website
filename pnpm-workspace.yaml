@@ -38,9 +38,6 @@ packages:
   - artifacts/silver-life-gym
 
 catalog:
-  '@replit/vite-plugin-cartographer': ^0.5.21
-  '@replit/vite-plugin-dev-banner': ^0.1.1
-  '@replit/vite-plugin-runtime-error-modal': ^0.0.6
   '@tailwindcss/vite': ^4.1.14
   '@tanstack/react-query': ^5.90.21
   '@types/node': ^25.3.3
@@ -67,7 +64,3 @@ onlyBuiltDependencies:
   - esbuild
   - msw
   - unrs-resolver
-
-overrides:
-  # drizzle-kit uses esbuild internally on an older version that's vulnerable, this overrides it
-  "@esbuild-kit/esm-loader": "npm:tsx@^4.21.0"
